@@ -1,0 +1,3 @@
+[
+	{ "keys": ["alt+a"], "command": "rtl_mirror" }
+]
