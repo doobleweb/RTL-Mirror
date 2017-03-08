@@ -1,6 +1,7 @@
 import sublime
 import sublime_plugin
 import re
+import string
 #this function show the hebrew word Correctly
 #in sublime text the word show at reverse.
 #the program start by click on the button "ALT+ A"
@@ -14,8 +15,8 @@ class rtlMirrorCommand(sublime_plugin.TextCommand):
 		self.WORD_DEVIDER=" " # a character that divide between words
 		self.SELECTION_DEVIDER = self.SETTINGS.get("selection_devider") #This character causes the separation between each selection
 		self.LINE_DEVIDER= "<br>"# a character that divide between the word in display
-		self.ALL_CHARS_AND_DIGITS_REGEX= "[\w\d\s\u05BE\u05C0\u05C3\u05D0-\u05EA\u05F0-\u05F4\u061B\u061F\u0621-\u063A\u0640-\u064A\u066D-\u066F\u0671-\u06D5\u06DD\u06E5-\u06E6\u06FA-\u06FE\u0700-\u070D\u0710\u0712-\u072C\u0780-\u07A5\u07B1\u200F\uFB1D\uFB1F-\uFB28\uFB2A-\uFB36\uFB38-\uFB3C\uFB3E\uFB40-\uFB41\uFB43-\uFB44\uFB46-\uFBB1\uFBD3-\uFD3D\uFD50-\uFD8F\uFD92-\uFDC7\uFDF0-\uFDFC\uFE70-\uFE74\uFE76-\uFEFC]+"# a regex wxpression to capture all letters (in all languages) and digits
-
+		self.ALL_CHARS_AND_DIGITS_REGEX= "[^" + string.punctuation + "]";# a regex wxpression to capture all letters (in all languages) and digits
+		
 	def run(self,edit): 
 		self._init_()
 		view=self.view
