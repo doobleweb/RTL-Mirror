@@ -1,10 +1,10 @@
 {
 	// this value states the character between the word
-	"VALEU_BETWEEN_SELECTION": "--",
+	"selection_devider": "--",
 
 	//this value states the max word in line
-	"count_word": 6,
+	"words_per_line": 6,
 
 	//this value states a width of popup
-	"max_width" : 1080
+	"window_max_width" : 1080
 }

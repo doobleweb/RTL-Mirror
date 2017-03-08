@@ -26,7 +26,7 @@ class rtlMirrorCommand(sublime_plugin.TextCommand):
 
 	
 		for point_word in sels: 
-			without_space=view.substr(view.word(point_word)).split(self.SPACE_WORD) 
+			without_space=view.substr(view.word(point_word)).split(self.WORD_DEVIDER) 
 			count_word=0 
 			count_selection=count_selection+1
 			first_array=[]
@@ -35,10 +35,10 @@ class rtlMirrorCommand(sublime_plugin.TextCommand):
 				str_word=str_word.strip("")	
 				str_word=str_word.replace("\n","")
 
-				if(count_word==self.settings.get("count_word")):
+				if(count_word==self.SETTINGS.get("words_per_line")):
 					first_array.reverse()
-					ready_aray.append(self.SPACE_WORD.join(first_array))
-					ready_aray.append(self.VALEU_BETWEEN_WORD)
+					ready_aray.append(self.WORD_DEVIDER.join(first_array))
+					ready_aray.append(self.LINE_DEVIDER)
 					first_array = [];
 					count_word=0
 				else:
@@ -49,26 +49,22 @@ class rtlMirrorCommand(sublime_plugin.TextCommand):
 			self.put_br(sels, count_selection,ready_aray,first_array)
 		self.show_pop(ready_aray)
 
-
-#שלומית כהן "ידיעות אחרונות" נמצאת בארה"ב 
-#בדיקה שניה עם מרכאות " בדיקה"
-
 	#this function put a br and character between the selection
 	def put_br(self, sels,count_selection ,ready_aray,first_array ):
 		first_array.reverse()
-		ready_aray.append(self.SPACE_WORD.join(first_array))
+		ready_aray.append(self.WORD_DEVIDER.join(first_array))
 		if(count_selection<len(sels)):
-				ready_aray.append(self.VALEU_BETWEEN_WORD)
-				ready_aray.append(self.VALEU_BETWEEN_SELECTION) # enter the character in final selection
-				ready_aray.append(self.VALEU_BETWEEN_WORD)
+				ready_aray.append(self.LINE_DEVIDER)
+				ready_aray.append(self.SELECTION_DEVIDER) # enter the character in final selection
+				ready_aray.append(self.LINE_DEVIDER)
 
 	#this function show the selection in pop_up
 	def show_pop(self, arr):
 		select_word_arr=[] # a first array that include the selection and show it in array.
-		divide_with_space=self.SPACE_WORD.join(arr) #create a string with word and put a space between the word
+		divide_with_space=self.WORD_DEVIDER.join(arr) #create a string with word and put a space between the word
 		select_word_arr.append(divide_with_space) # enter the word(string) to array 
-		show_a_string=self.VALEU_BETWEEN_WORD.join(select_word_arr) #create a string with all words because a function-popup identify only string
-		self.view.show_popup(show_a_string, max_width=self.settings.get("max_width")) #Shows a popup displaying HTML content.
+		show_a_string=self.LINE_DEVIDER.join(select_word_arr) #create a string with all words because a function-popup identify only string
+		self.view.show_popup(show_a_string, max_width=self.SETTINGS.get("window_max_width")) #Shows a popup displaying HTML content.
 
 
 	#this function give a solution in case that have a character (not alphanomeric)
@@ -77,7 +73,7 @@ class rtlMirrorCommand(sublime_plugin.TextCommand):
 		last_char=""
 		counter=0
 		word=word.strip("")	
-		char_in_word =re.sub("[a-zA-Z0-9א-ת\s]+", "", word)
+		char_in_word =re.sub(self.ALL_CHARS_AND_DIGITS_REGEX, "", word)
 		while (counter<(len(word))):
 			if (len(word)== len(char_in_word)):
 				return char_in_word[::-1]
