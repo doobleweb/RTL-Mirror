@@ -1,3 +1,3 @@
 [
-	{ "keys": ["shift+f1"], "command": "rtl_mirror" }
+	{ "keys": ["alt+a"], "command": "rtl_mirror" }
 ]
