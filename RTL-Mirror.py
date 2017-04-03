@@ -2,6 +2,12 @@ import sublime
 import sublime_plugin
 import re
 import string
+
+# check version
+CURRENT_VERSION = int(sublime.version())
+if CURRENT_VERSION < 3080:
+	raise ValueError('REQUIRED_VERSION >= 3080')
+
 #this function show the hebrew word Correctly
 #in sublime text the word show at reverse.
 #the program start by click on the button "ALT+ A"
