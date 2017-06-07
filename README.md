@@ -4,7 +4,7 @@ Author: Shlomit Cohen
 
 Credit to: Dooble
 
-A Sublime Editor plugin that can display RTL content correctly.
+A Sublime Editor plugin that can display RTL (<b>R</b>ight <b>T</b>o <b>L</b>eft) content correctly.
 
 ## Features
 
