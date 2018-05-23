@@ -6,6 +6,8 @@ Credit to: Dooble
 
 A Sublime Editor plugin that can display RTL (<b>R</b>ight <b>T</b>o <b>L</b>eft) content correctly.
 
+Notice: to fix rtl problems from Sublime version 3.1 (3170) you need to change <i>"font_options": ["gdi"]</i>
+
 ## Features
 
 <ul>
