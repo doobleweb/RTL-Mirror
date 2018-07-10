@@ -33,7 +33,6 @@ class rtlMirrorCommand(sublime_plugin.TextCommand):
 		ready_aray=[] # the second arr , the final arr that contain all value to show for user
 		count_selection=0
 
-	
 		for point_word in sels: 
 			without_space=view.substr(view.word(point_word)).split(self.WORD_DEVIDER) 
 			count_word=0 
@@ -43,6 +42,8 @@ class rtlMirrorCommand(sublime_plugin.TextCommand):
 			for str_word in without_space :
 				str_word=str_word.strip("")	
 				str_word=str_word.replace("\n","")
+				if(CURRENT_VERSION > 3143):
+					str_word=str_word[::-1]
 
 				if(count_word==self.SETTINGS.get("words_per_line")):
 					first_array.reverse()
@@ -73,7 +74,8 @@ class rtlMirrorCommand(sublime_plugin.TextCommand):
 		divide_with_space=self.WORD_DEVIDER.join(arr) #create a string with word and put a space between the word
 		select_word_arr.append(divide_with_space) # enter the word(string) to array 
 		show_a_string=self.LINE_DEVIDER.join(select_word_arr) #create a string with all words because a function-popup identify only string
-		self.view.show_popup(show_a_string, max_width=self.SETTINGS.get("window_max_width")) #Shows a popup displaying HTML content.
+		max_width= self.SETTINGS.get("window_max_width",1080)
+		self.view.show_popup(show_a_string, max_width) #Shows a popup displaying HTML content.
 
 
 	#this function give a solution in case that have a character (not alphanomeric)
