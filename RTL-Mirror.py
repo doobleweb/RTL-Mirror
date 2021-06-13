@@ -4,6 +4,7 @@ import re
 import string
 
 from .arabic_reshaper import arabic_reshaper
+from .arabic_reshaper.arabic_reshaper.letters import LETTERS_ARABIC
 
 
 """check version"""
@@ -50,10 +51,12 @@ class rtlMirrorCommand(sublime_plugin.TextCommand):
                 str_word = str_word.strip("")
                 str_word = str_word.replace("\n", "")
 
+                is_arabic = self.is_arabic(str_word)
+
                 if CURRENT_VERSION > 4000:
                     str_word = arabic_reshaper.reshape(str_word)
 
-                if CURRENT_VERSION > 3143:
+                if CURRENT_VERSION > 3143 and is_arabic:
                     str_word = str_word[::-1]
 
                 if count_word == self.SETTINGS.get("words_per_line"):
@@ -69,6 +72,13 @@ class rtlMirrorCommand(sublime_plugin.TextCommand):
 
             self.put_br(sels, count_selection, ready_aray, first_array)
         self.show_pop(ready_aray)
+
+    def is_arabic(self, word):
+        """this function checks if there is any arabic letter in the given word"""
+        for letter in word:
+            if letter in LETTERS_ARABIC:
+                return True
+        return False
 
     def put_br(self, sels, count_selection, ready_aray, first_array):
         """this function put a <br> and character between the selection"""
