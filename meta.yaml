@@ -1,0 +1,50 @@
+{% set name = "arabic-reshaper" %}
+{% set pypi_name = "arabic_reshaper" %}
+{% set version = "2.1.1" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  git_url: https://github.com/mpcabd/python-arabic-reshaper.git
+  git_rev: "v{{ version }}"
+  git_depth: 1
+
+build:
+  noarch: generic
+  number: 0
+  script: "{{ PYTHON }} -m pip install .[with-fonttools] -vv"
+
+requirements:
+  host:
+    - configparser;       # [ py < 3 ]
+    - fonttools >=4.0     # [ py > 3 ]
+    - fonttools >=3.0<4.0 # [ py < 3 ]
+    - future
+    - pip
+    - python
+    - setuptools
+  run:
+    - configparser;       # [ py < 3 ]
+    - fonttools >=4.0     # [ py > 3 ]
+    - fonttools >=3.0<4.0 # [ py < 3 ]
+    - future
+    - python
+    - setuptools
+
+test:
+  imports:
+    - arabic_reshaper
+
+about:
+  home: "https://mpcabd.xyz/python-arabic-text-reshaper/"
+  license: MIT
+  license_family: MIT
+  summary: "Reconstruct Arabic sentences to be used in applications that don't support Arabic"
+  doc_url: "https://github.com/mpcabd/python-arabic-reshaper/"
+  dev_url: "https://github.com/mpcabd/python-arabic-reshaper/"
+
+extra:
+  recipe-maintainers:
+    - mpcabd
