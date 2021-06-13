@@ -41,16 +41,17 @@ class rtlMirrorCommand(sublime_plugin.TextCommand):
         for point_word in sels:
             without_space = view.substr(view.word(point_word)).split(self.WORD_DEVIDER)
             count_word = 0
-            count_selection = count_selection+1
+            count_selection += 1
             first_array = []
 
             for str_word in without_space:
                 str_word = str_word.strip("")
                 str_word = str_word.replace("\n", "")
-                if(CURRENT_VERSION > 3143):
+
+                if CURRENT_VERSION > 3143:
                     str_word = str_word[::-1]
 
-                if(count_word == self.SETTINGS.get("words_per_line")):
+                if count_word == self.SETTINGS.get("words_per_line"):
                     first_array.reverse()
                     ready_aray.append(self.WORD_DEVIDER.join(first_array))
                     ready_aray.append(self.LINE_DEVIDER)
@@ -68,7 +69,7 @@ class rtlMirrorCommand(sublime_plugin.TextCommand):
         """this function put a <br> and character between the selection"""
         first_array.reverse()
         ready_aray.append(self.WORD_DEVIDER.join(first_array))
-        if(count_selection < len(sels)):
+        if count_selection < len(sels):
             ready_aray.append(self.LINE_DEVIDER)
             ready_aray.append(self.SELECTION_DEVIDER)  # enter the character in final selection
             ready_aray.append(self.LINE_DEVIDER)
@@ -89,17 +90,17 @@ class rtlMirrorCommand(sublime_plugin.TextCommand):
         counter = 0
         word = word.strip("")
         char_in_word = re.sub(self.ALL_CHARS_AND_DIGITS_REGEX, "", word)
-        while (counter < (len(word))):
-            if (len(word) == len(char_in_word)):
+        while counter < len(word):
+            if len(word) == len(char_in_word):
                 return char_in_word[::-1]
             counter = counter+1
-            if (word[0] in char_in_word):
+            if word[0] in char_in_word:
                 first_char = word[0]+first_char
                 word = list(word)
                 del(word[0])
                 counter = counter-1
                 word = "".join(word)
-            if (word[-1] in char_in_word):
+            if word[-1] in char_in_word:
                 last_char = last_char+word[-1]
                 print("last char" + last_char)
                 word = list(word)
