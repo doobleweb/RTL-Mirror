@@ -3,6 +3,8 @@ import sublime_plugin
 import re
 import string
 
+from .arabic_reshaper import arabic_reshaper
+
 
 """check version"""
 CURRENT_VERSION = int(sublime.version())
@@ -47,6 +49,9 @@ class rtlMirrorCommand(sublime_plugin.TextCommand):
             for str_word in without_space:
                 str_word = str_word.strip("")
                 str_word = str_word.replace("\n", "")
+
+                if CURRENT_VERSION > 4000:
+                    str_word = arabic_reshaper.reshape(str_word)
 
                 if CURRENT_VERSION > 3143:
                     str_word = str_word[::-1]
